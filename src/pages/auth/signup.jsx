@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../../supabaseClient"; // supabase 클라이언트 경로 맞춰서
-import Header from "../../components/header/Header"
+import Header from "../../components/header/header"
 import styles from "./Signup.module.css";
 
 function Signup() {

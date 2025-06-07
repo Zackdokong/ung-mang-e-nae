@@ -2,20 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
 import styles from "./TeamSetting.module.css";
-import Header from "../../components/header/Header";
-
-const teams = [
-  "기아 타이거즈",
-  "LG 트윈스",
-  "두산 베어스",
-  "한화 이글스",
-  "삼성 라이온즈",
-  "롯데 자이언츠",
-  "SSG 랜더스",
-  "KT 위즈",
-  "NC 다이노스",
-  "키움 히어로즈",
-];
+import Header from "../../components/header/header";
+import * as constants from "../../constants/constants";
 
 function TeamSetting() {
   const [selectedTeam, setSelectedTeam] = useState("");
@@ -80,7 +68,7 @@ function TeamSetting() {
             disabled={loading}
           >
             <option value="">-- 팀을 선택하세요 --</option>
-            {teams.map((team) => (
+            {constants.teams.map((team) => (
               <option key={team} value={team}>
                 {team}
               </option>
