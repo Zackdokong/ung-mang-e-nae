@@ -4,6 +4,7 @@ import MainPage from "./pages/main/mainpage";
 import Login from "./pages/auth/login";
 import Signup from "./pages/auth/signup";
 import TeamSetting from "./pages/team/TeamSetting";
+import ChatRoom from "./pages/chatroom/chatroom";
 
 function Router() {
     return(<Routes>
@@ -11,6 +12,7 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/my-team" element={<TeamSetting />} />
+        <Route path="/chatroom/:team" element={<ChatRoom />} />
     </Routes>);
 }
 

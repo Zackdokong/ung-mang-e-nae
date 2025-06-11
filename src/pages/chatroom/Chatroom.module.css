@@ -1,0 +1,69 @@
+.chatRoomContainer {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px); /* Header 높이 제외 */
+    padding: 10px;
+  }
+  
+  .topBar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .backButton {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    flex-grow: 1;
+    text-align: left;
+  }
+  
+  .chatArea {
+    height: 60vh; /* chatArea 높이 제한 */
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+  }
+  
+  .message {
+    margin-bottom: 8px;
+    font-size: 14px;
+    word-wrap: break-word;
+  }
+  
+  .inputArea {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .sendButton {
+    padding: 10px 16px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .sendButton:hover {
+    background-color: #357abd;
+  }
+  
