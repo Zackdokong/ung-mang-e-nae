@@ -36,11 +36,34 @@
   }
   
   .message {
-    margin-bottom: 8px;
-    font-size: 14px;
-    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    max-width: 60%;
+    word-break: break-word;
   }
   
+  .myMessage {
+    align-self: flex-end;
+    background-color: #b4d0f0;
+    border-radius: 15px 15px 0 15px;
+    padding: 8px 12px;
+    color: #000;
+  }
+  
+  .otherMessage {
+    align-self: flex-start;
+    background-color: #f1f0f0;
+    border-radius: 15px 15px 15px 0;
+    padding: 8px 12px;
+    color: #000;
+  }
+  
+  .sender {
+    font-size: 12px;
+    margin-bottom: 3px;
+    font-weight: bold;
+  }
   .inputArea {
     display: flex;
     gap: 10px;

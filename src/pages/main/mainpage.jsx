@@ -7,9 +7,13 @@ import * as constants from '../../constants/constants'; // 여기만 수정됨
 function MainPage() {
   const navigate = useNavigate();
 
-  const handleEnterChat = (team) => {
-    const teamSlug = team.replace(/\s/g, '');
-    navigate(`/chatroom/${teamSlug}`);
+  const handleEnterChat = (teamName) => {
+    const slug = constants.teamSlugMap[teamName];
+    if (!slug) {
+      alert("알 수 없는 팀입니다.");
+      return;
+    }
+    navigate(`/chatroom/${slug}`);
   };
 
   // 5개씩 두 줄로 나누기

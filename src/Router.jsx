@@ -12,7 +12,7 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/my-team" element={<TeamSetting />} />
-        <Route path="/chatroom/:team" element={<ChatRoom />} />
+        <Route path="/chatroom/:slug" element={<ChatRoom />} />
     </Routes>);
 }
 
