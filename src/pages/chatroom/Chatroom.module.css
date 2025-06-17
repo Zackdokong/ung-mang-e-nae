@@ -1,7 +1,7 @@
 .chatRoomContainer {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 60px); /* Header 높이 제외 */
+    height: calc(90vh - 60px); /* Header 높이 제외 */
     padding: 10px;
   }
   
@@ -35,35 +35,40 @@
     margin-bottom: 10px;
   }
   
-  .message {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-    max-width: 60%;
-    word-break: break-word;
-  }
-  
-  .myMessage {
-    align-self: flex-end;
-    background-color: #b4d0f0;
-    border-radius: 15px 15px 0 15px;
-    padding: 8px 12px;
-    color: #000;
-  }
-  
-  .otherMessage {
-    align-self: flex-start;
-    background-color: #f1f0f0;
-    border-radius: 15px 15px 15px 0;
-    padding: 8px 12px;
-    color: #000;
-  }
-  
-  .sender {
-    font-size: 12px;
-    margin-bottom: 3px;
-    font-weight: bold;
-  }
+  /* 말풍선 공통 */
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  max-width: min(45%, 280px); /* 아까 줄였던 거 유지 */
+  word-break: break-word;
+}
+
+/* 내가 보낸 */
+.myMessage {
+  margin-left: auto;
+  background-color: #b4d0f0;
+  border-radius: 15px 15px 0 15px;
+  padding: 10px 14px;
+  text-align: right;
+}
+
+/* 남이 보낸 */
+.otherMessage {
+  margin-right: auto;
+  background-color: #f1f0f0;
+  border-radius: 15px 15px 15px 0;
+  padding: 10px 14px;
+  text-align: left;
+}
+
+/* 시간 표시 */
+.time {
+  font-size: 11px;
+  margin-top: 4px;
+  opacity: 0.6; /* 살짝 흐리게 */
+}
+
   .inputArea {
     display: flex;
     gap: 10px;
@@ -88,5 +93,30 @@
   
   .sendButton:hover {
     background-color: #357abd;
+  }
+  
+  .favTeam {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+    font-style: italic;
+  }
+  
+  .senderLine {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    display: flex;
+    gap: 6px; /* 이름과 팀명 사이 간격 */
+    align-items: center;
+  }
+  
+  .sender {
+    color: #000;
+  }
+  
+  .favTeam {
+    font-size: 12px;
+    font-weight: normal;
   }
   

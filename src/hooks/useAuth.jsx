@@ -73,6 +73,7 @@ export function useAuth() {
   };
 
   return {
+    user,
     isLoggedIn: !!user,
     userName: user?.email || "유저",
     nickName,
