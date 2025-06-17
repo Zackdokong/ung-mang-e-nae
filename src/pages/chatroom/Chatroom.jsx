@@ -14,14 +14,10 @@ function ChatRoom() {
   const [roomTitle, setRoomTitle] = useState("");
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const bottomRef = useRef(null); // 👈 맨 아래 ref 추가
+  const bottomRef = useRef(null);
 
   if (user === undefined) {
     return <div>로딩 중...</div>;
-  }
-
-  if (!isLoggedIn) {
-    navigate("../../login");
   }
 
   const formatTime = (iso) => {
@@ -34,7 +30,6 @@ function ChatRoom() {
     ).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
   };
 
-  // 채팅방 정보 불러오기
   useEffect(() => {
     const fetchRoom = async () => {
       const { data, error } = await supabase
@@ -52,7 +47,6 @@ function ChatRoom() {
     fetchRoom();
   }, [slug]);
 
-  // 메시지 로드 + 실시간 구독
   useEffect(() => {
     if (!roomId) return;
 
@@ -69,27 +63,27 @@ function ChatRoom() {
         return;
       }
 
-      const messagesWithNicknames = await Promise.all(
+      const messagesWithUserInfo = await Promise.all(
         messagesData.map(async (msg) => {
           const { data: userData } = await supabase
             .from("users")
-            .select("nickname")
+            .select("nickname, team")
             .eq("id", msg.user_id)
             .single();
 
           return {
             ...msg,
             usernickname: userData?.nickname ?? "알 수 없음",
+            userfavTeam: userData?.team ?? "미지정",
           };
         })
       );
 
-      setMessages(messagesWithNicknames);
+      setMessages(messagesWithUserInfo);
     };
 
     fetchMessages();
 
-    // 실시간 구독
     const channel = supabase
       .channel(`chat-${roomId}`)
       .on(
@@ -105,7 +99,7 @@ function ChatRoom() {
 
           const { data: userData } = await supabase
             .from("users")
-            .select("nickname")
+            .select("nickname, team")
             .eq("id", msg.user_id)
             .single();
 
@@ -114,6 +108,7 @@ function ChatRoom() {
             {
               ...msg,
               usernickname: userData?.nickname ?? "알 수 없음",
+              userfavTeam: userData?.team ?? "미지정",
             },
           ]);
         }
@@ -125,7 +120,6 @@ function ChatRoom() {
     };
   }, [roomId]);
 
-  // 👇 메시지가 바뀔 때마다 스크롤 맨 아래로
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -175,7 +169,7 @@ function ChatRoom() {
                     {isMine ? "나" : msg.usernickname}
                   </span>
                   <span className={styles.favTeam}>
-                    {favTeam ? favTeam : "미지정"}
+                    {isMine ? favTeam : msg.userfavTeam}
                   </span>
                 </span>
                 <div className={styles.text}>{msg.content}</div>
@@ -185,13 +179,13 @@ function ChatRoom() {
               </div>
             );
           })}
-          <div ref={bottomRef} /> {/* 👈 스크롤용 빈 div */}
+          <div ref={bottomRef} />
         </div>
 
         <div className={styles.inputArea}>
           <input
             type="text"
-            placeholder="메시지를 입력하세요"
+            placeholder={isLoggedIn ? "메세지를 입력하세요" : "로그인을 해야합니다"}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
