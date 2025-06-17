@@ -22,12 +22,7 @@ function ChatRoom() {
 
   const formatTime = (iso) => {
     const date = new Date(iso);
-    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}.${String(date.getDate()).padStart(2, "0")} ${String(
-      date.getHours()
-    ).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
   };
 
   useEffect(() => {
@@ -55,7 +50,8 @@ function ChatRoom() {
         .from("chat_messages")
         .select("*")
         .eq("room_id", roomId)
-        .order("created_at", { ascending: true });
+        .order("created_at", { ascending: true })
+        .range(0, 49);
 
       if (error || !messagesData) {
         console.error("메시지 로드 실패:", error);
@@ -63,21 +59,23 @@ function ChatRoom() {
         return;
       }
 
-      const messagesWithUserInfo = await Promise.all(
-        messagesData.map(async (msg) => {
-          const { data: userData } = await supabase
-            .from("users")
-            .select("nickname, team")
-            .eq("id", msg.user_id)
-            .single();
+      // 유저 ID 목록 추출
+      const userIds = [...new Set(messagesData.map((msg) => msg.user_id))];
+      const { data: usersData } = await supabase
+        .from("users")
+        .select("id, nickname, team")
+        .in("id", userIds);
 
-          return {
-            ...msg,
-            usernickname: userData?.nickname ?? "알 수 없음",
-            userfavTeam: userData?.team ?? "미지정",
-          };
-        })
-      );
+      const userMap = {};
+      usersData?.forEach((user) => {
+        userMap[user.id] = user;
+      });
+
+      const messagesWithUserInfo = messagesData.map((msg) => ({
+        ...msg,
+        usernickname: userMap[msg.user_id]?.nickname ?? "알 수 없음",
+        userfavTeam: userMap[msg.user_id]?.team ?? "미지정",
+      }));
 
       setMessages(messagesWithUserInfo);
     };
@@ -121,7 +119,7 @@ function ChatRoom() {
   }, [roomId]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    bottomRef.current?.scrollIntoView({ behavior: "auto" });
   }, [messages]);
 
   const handleSend = async () => {
