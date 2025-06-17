@@ -48,7 +48,7 @@
 .myMessage {
   margin-left: auto;
   background-color: #b4d0f0;
-  border-radius: 15px 15px 0 15px;
+  border-radius: 15px 0px 15px 15px;
   padding: 10px 14px;
   text-align: right;
 }
@@ -57,7 +57,7 @@
 .otherMessage {
   margin-right: auto;
   background-color: #f1f0f0;
-  border-radius: 15px 15px 15px 0;
+  border-radius: 0px 15px 15px 15px;
   padding: 10px 14px;
   text-align: left;
 }
@@ -98,25 +98,7 @@
   .favTeam {
     font-size: 12px;
     color: #666;
-    margin-bottom: 5px;
-    font-style: italic;
   }
-  
-  .senderLine {
-    font-size: 14px;
-    margin-bottom: 5px;
-    font-weight: bold;
-    display: flex;
-    gap: 6px; /* 이름과 팀명 사이 간격 */
-    align-items: center;
-  }
-  
   .sender {
-    color: #000;
+    margin-right: 0.5rem;
   }
-  
-  .favTeam {
-    font-size: 12px;
-    font-weight: normal;
-  }
-  

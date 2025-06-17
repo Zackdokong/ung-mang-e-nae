@@ -20,8 +20,8 @@ function ChatRoom() {
     return <div>로딩 중...</div>;
   }
 
-  if(!isLoggedIn){
-    navigate("../../login")
+  if (!isLoggedIn) {
+    navigate("../../login");
   }
 
   const formatTime = (iso) => {
@@ -170,16 +170,18 @@ function ChatRoom() {
                   isMine ? styles.myMessage : styles.otherMessage
                 }`}
               >
-                <span className={styles.sender}>
-                  {isMine ? "나" : msg.usernickname}
+                <span>
+                  <span className={styles.sender}>
+                    {isMine ? "나" : msg.usernickname}
+                  </span>
+                  <span className={styles.favTeam}>
+                    {favTeam ? favTeam : "미지정"}
+                  </span>
                 </span>
-                
-                <span className={styles.favTeam}>
-                  {favTeam ? favTeam : "미지정"}
-                </span>
-
                 <div className={styles.text}>{msg.content}</div>
-                <span className={styles.time}>{formatTime(msg.created_at)}</span>
+                <span className={styles.time}>
+                  {formatTime(msg.created_at)}
+                </span>
               </div>
             );
           })}
