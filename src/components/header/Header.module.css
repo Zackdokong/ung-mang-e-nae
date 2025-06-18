@@ -5,6 +5,8 @@
   padding: 16px 32px;
   background-color: white;
   border-bottom: 1px solid #ddd;
+  flex-wrap: wrap;
+  gap: 8px 0;
 }
 
 .logoSection {
@@ -23,13 +25,19 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap; /* 중요! 버튼, 텍스트 자동 줄바꿈 */
 }
 
 .welcome {
   font-weight: 500;
   margin-right: 8px;
+  /* 모바일에서 너무 길면 줄바꿈되게 */
+  word-break: keep-all;
+  white-space: pre-line;
+  font-size: 16px;
 }
 
+/* 버튼 스타일 */
 .button {
   padding: 8px 14px;
   background-color: #0066cc;
@@ -40,8 +48,40 @@
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  min-width: 70px; /* 버튼 너무 찌그러지는 거 방지 */
+  text-align: center;
 }
-
 .button:hover {
   background-color: #0052a3;
+}
+
+/* ---------- 모바일 반응형 ----------- */
+@media (max-width: 600px) {
+  .header {
+    padding: 6px 10px;
+    flex-direction: column;
+    align-items: stretch;
+    position: fixed;
+  top: 0;
+  z-index: 10;
+  }
+  .logo {
+    font-size: 20px;
+    margin-bottom: 0px;
+  }
+  .rightSection {
+    flex-direction: row;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .welcome {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .button {
+    font-size: 13px;
+    padding: 6px 8px;
+    min-width: 56px;
+  }
 }

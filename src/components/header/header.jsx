@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks/useAuth"; // 내가 만든 훅 경로 맞�
 import styles from "./Header.module.css";
 
 function Header() {
-  const { isLoggedIn, userName, nickName, favTeam, logout } = useAuth();
+  const { isLoggedIn,  nickName, favTeam, logout } = useAuth();
 
   return (
     <header className={styles.header}>
