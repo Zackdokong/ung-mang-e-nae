@@ -24,11 +24,8 @@ function Login() {
       });
 
       if (error) throw error;
-
-      console.log("로그인 성공:", data);
       navigate("/"); // 로그인 성공 시 메인 페이지로 이동
     } catch (error) {
-      console.error("로그인 실패:", error.message);
       alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
     }
   };
