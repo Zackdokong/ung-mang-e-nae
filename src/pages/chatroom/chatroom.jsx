@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "../../components/header/header";
-import styles from "./ChatRoom.module.css";
+import styles from "./Chatroom.module.css";
 import { useAuth } from "../../hooks/useAuth";
 import { supabase } from "../../supabaseClient";
 
