@@ -64,3 +64,16 @@
     text-decoration: underline;
   }
   
+  .select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
