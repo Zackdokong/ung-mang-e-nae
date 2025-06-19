@@ -55,33 +55,41 @@
   background-color: #0052a3;
 }
 
-/* ---------- 모바일 반응형 ----------- */
 @media (max-width: 600px) {
   .header {
-    padding: 6px 10px;
+    padding: 10px;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center; /* center로 바꿈 */
     position: fixed;
-  top: 0;
-  z-index: 10;
+    top: 0;
+    width: 100%; /* 추가 */
+    z-index: 10;
+    background-color: white;
   }
+
   .logo {
     font-size: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 6px; /* 여백 추가 */
   }
+
   .rightSection {
     flex-direction: row;
-    gap: 6px;
+    gap: 8px;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: center; /* 중앙 정렬 */
+    margin-top: 6px; /* 로고와 거리 */
+    margin-right: 1rem;
   }
+
   .welcome {
     font-size: 14px;
     margin-bottom: 2px;
+    text-align: center;
   }
+
   .button {
     font-size: 13px;
-    padding: 6px 8px;
-    min-width: 56px;
+    padding: 6px 10px;
+    min-width: 60px;
   }
 }
