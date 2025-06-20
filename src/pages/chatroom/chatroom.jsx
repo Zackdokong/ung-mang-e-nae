@@ -51,7 +51,6 @@ function ChatRoom() {
         .select("*")
         .eq("room_id", roomId)
         .order("created_at", { ascending: true })
-        .range(0, 49);
 
       if (error || !messagesData) {
         console.error("메시지 로드 실패:", error);
