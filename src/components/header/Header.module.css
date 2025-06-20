@@ -59,26 +59,33 @@
   .header {
     padding: 10px;
     flex-direction: column;
-    align-items: center; /* center로 바꿈 */
+    align-items: center;
     position: fixed;
     top: 0;
-    width: 100%; /* 추가 */
+    left: 0;         /* 추가 */
+    right: 0;        /* 추가 */
+    width: 100vw;    /* vw로 해주는 게 확실하게 채워짐 */
     z-index: 10;
     background-color: white;
+    margin-left: 0;
+    box-sizing: border-box;  /* 추가! */
   }
 
   .logo {
     font-size: 20px;
-    margin-bottom: 6px; /* 여백 추가 */
+    margin-bottom: 6px;
+    align-items: center;
+    text-align: center;
   }
 
   .rightSection {
+    display: flex;
+    width: 100%;
     flex-direction: row;
     gap: 8px;
     flex-wrap: wrap;
-    justify-content: center; /* 중앙 정렬 */
-    margin-top: 6px; /* 로고와 거리 */
-    margin-right: 1rem;
+    justify-content: center;
+    margin-top: 6px;
   }
 
   .welcome {
