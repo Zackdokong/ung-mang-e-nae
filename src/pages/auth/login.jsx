@@ -6,27 +6,48 @@ import { supabase } from "../../supabaseClient";
 
 function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [idOrEmail, setIdOrEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // 이메일 정규식
+  const isEmail = (value) => /\S+@\S+\.\S+/.test(value);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      alert("이메일과 비밀번호를 입력해 주세요.");
+    if (!idOrEmail || !password) {
+      alert("이메일(또는 닉네임)과 비밀번호를 입력해 주세요.");
       return;
     }
 
+    let emailToUse = idOrEmail;
+
+    // 만약에 입력이 이메일이 아니라면(닉네임이면)
+    if (!isEmail(idOrEmail)) {
+      // 닉네임 → 이메일로 변환
+      const { data, error } = await supabase
+        .from("users")
+        .select("id, email")
+        .eq("nickname", idOrEmail)
+        .single();
+
+      if (error || !data?.email) {
+        alert("존재하지 않는 닉네임입니다.");
+        return;
+      }
+      emailToUse = data.email;
+    }
+
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
+      const { error } = await supabase.auth.signInWithPassword({
+        email: emailToUse,
         password,
       });
 
       if (error) throw error;
       navigate("/"); // 로그인 성공 시 메인 페이지로 이동
     } catch (error) {
-      alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
+      alert("로그인에 실패했습니다. 아이디(닉네임)/이메일 또는 비밀번호를 확인해주세요.");
     }
   };
 
@@ -37,10 +58,10 @@ function Login() {
         <h2 className={styles.title}>로그인</h2>
         <form onSubmit={handleLogin} className={styles.form}>
           <input
-            type="email"
-            placeholder="이메일"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="이메일 또는 닉네임"
+            value={idOrEmail}
+            onChange={(e) => setIdOrEmail(e.target.value)}
             className={styles.input}
             required
           />
