@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from './Mainpage.module.css';
 import Header from '../../components/header/header';
-import * as constants from '../../constants/constants'; // 여기만 수정됨
+import * as constants from '../../constants/constants';
 
 function MainPage() {
   const navigate = useNavigate();
@@ -20,11 +20,22 @@ function MainPage() {
   const firstRow = constants.teams.slice(0, 5);
   const secondRow = constants.teams.slice(5, 10);
 
+  // 전체채팅방 버튼 따로
+  const handleEnterAllChat = () => {
+    navigate('/chatroom/all');
+  };
+
   return (
     <>
       <Header />
       <div className={styles.container}>
         <h1 className={styles.title}>⚾️ 팀별 응원 채팅방</h1>
+        <button
+          className={`${styles.chatButton} ${styles.allChatButton}`}
+          onClick={handleEnterAllChat}
+        >
+          전체 채팅방
+        </button>
         <div className={styles.row}>
           {firstRow.map((team) => (
             <button

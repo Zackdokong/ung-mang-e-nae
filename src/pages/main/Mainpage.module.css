@@ -55,3 +55,12 @@
     }
   }
   
+  .allChatButton {
+    background-color: #e94c4c;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  .allChatButton:hover {
+    background-color: #bf2c2c;
+  }
+  
