@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
-import Header from "../../components/header/header"
+import Header from "../../components/header/header";
 import styles from "./Signup.module.css";
 import * as constants from "../../constants/constants";
 
@@ -26,6 +26,21 @@ function Signup() {
     setLoading(true);
 
     try {
+      // 1. 닉네임 중복 체크
+      const { data: nicknameRows, error: nicknameError } = await supabase
+        .from("users")
+        .select("id")
+        .eq("nickname", nickname)
+        .limit(1);
+
+      if (nicknameError) throw nicknameError;
+      if (nicknameRows && nicknameRows.length > 0) {
+        alert("이미 존재하는 닉네임입니다. 다른 닉네임을 사용해 주세요.");
+        setLoading(false);
+        return;
+      }
+
+      // 2. 회원가입 진행
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -97,7 +112,9 @@ function Signup() {
           >
             <option value="">팀 선택</option>
             {teams.map((team) => (
-              <option key={team} value={team}>{team}</option>
+              <option key={team} value={team}>
+                {team}
+              </option>
             ))}
           </select>
           <button type="submit" className={styles.button} disabled={loading}>
