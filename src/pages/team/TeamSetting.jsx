@@ -23,6 +23,7 @@ function TeamSetting() {
         navigate("/login");
       } else {
         setUserId(user.id);
+        console.log("현재 유저 id:", user.id);
       }
     };
 
@@ -36,19 +37,29 @@ function TeamSetting() {
       alert("응원팀을 선택해 주세요.");
       return;
     }
+    if (!userId) {
+      alert("유저 정보를 불러오지 못했어요.");
+      return;
+    }
 
     setLoading(true);
 
-    const { error } = await supabase
+    const { error, data } = await supabase
       .from("users")
       .update({ team: selectedTeam })
-      .eq("id", userId);
+      .eq("id", userId)
+      .select();
 
     setLoading(false);
+
+    console.log("update 결과:", { error, data });
 
     if (error) {
       console.error("팀 설정 실패:", error);
       alert("팀 설정에 실패했어요.");
+    } else if (!data || data.length === 0) {
+      // 성공했는데 데이터 없으면 대부분 RLS, where 조건 문제
+      alert("팀이 저장되지 않았어요. 권한/조건 문제일 수 있습니다.");
     } else {
       alert("팀이 성공적으로 저장됐어요!");
       navigate("/");
@@ -82,4 +93,5 @@ function TeamSetting() {
     </>
   );
 }
+
 export default TeamSetting;
